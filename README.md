@@ -94,6 +94,8 @@ This query will show the top 10 types of files being transferred. You may need t
 index=ftp sourcetype=ftp_logs | stats count as total_transfers, sum(bytes_transferred) as total_bytes, avg(bytes_transferred) as average_bytes, max(bytes_transferred) as max_bytes, min(bytes_transferred) as min_bytes
 ```
 This query will calculate various statistics such as the total number of transfers, total bytes transferred, average bytes per transfer, maximum bytes transferred in a single transfer, and minimum bytes transferred in a single transfer.
+
+
 ### 4. Detect Anomalies
 - Look for unusual patterns in file transfer activity.
 ```
@@ -116,6 +118,7 @@ index=ftp sourcetype=ftp_logs | fit DensityFunction transfer_count into ftp_mode
 ```
 This query uses a density function to model the transfer count and predicts future values. It then identifies any significant deviations from the predicted values.
 
+
 ### 5. Monitor User Behavior
 - Monitor user behavior during file transfers.
 ```
@@ -132,6 +135,7 @@ This query will identify users who have had more than 5 failed login attempts.
 index=ftp sourcetype=ftp_logs | timechart span=1h count by user | streamstats window=7 range(count) as activity_range | where activity_range > 10
 ```
 This query will identify users whose activity deviates significantly from their normal behavior by comparing the current hour's activity to the previous seven hours.
+
 
 ## Conclusion
 Analyzing FTP log files using Splunk SIEM provides valuable insights into file transfer activities within a network. By monitoring FTP events, detecting anomalies, and correlating with other logs, organizations can enhance their security posture and protect against various cyber threats.
